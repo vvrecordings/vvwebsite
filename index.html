@@ -6,11 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Valuable Variety — Independent record label.">
   <title>VV — Valuable Variety</title>
+
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
@@ -53,12 +58,12 @@
     }
 
     .hero {
+      width: 100%;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 100px 20px;
+      background-image: url("Artboard%201%20born.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     @media (max-width: 600px) {
@@ -80,6 +85,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <header>
@@ -95,9 +101,7 @@
   </header>
 
   <main>
-    <section class="hero" id="home">
-    </section>
-
+    <section class="hero" id="home"></section>
     <section id="releases"></section>
     <section id="artists"></section>
     <section id="about"></section>
@@ -106,3 +110,4 @@
 
 </body>
 </html>
+
