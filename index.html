@@ -64,6 +64,26 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+      position: relative;
+    }
+
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: "Times New Roman", Times, serif;
+      font-size: clamp(32px, 5vw, 64px);
+      font-weight: normal;
+      color: #fff;
+      white-space: nowrap;
+      opacity: 1;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+    }
+
+    .hero-text.hidden {
+      opacity: 0;
     }
 
     @media (max-width: 600px) {
@@ -100,13 +120,35 @@
   </header>
 
   <main>
-    <section class="hero" id="home"></section>
+    <section class="hero" id="home">
+      <div class="hero-text" id="heroText">
+        Valuable Variety
+      </div>
+    </section>
+
     <section id="releases"></section>
     <section id="artists"></section>
     <section id="about"></section>
     <section id="contact"></section>
   </main>
 
+  <script>
+    const heroText = document.getElementById("heroText");
+    const navigationLinks = document.querySelectorAll("nav a");
+    const homeLink = document.querySelector(".logo");
+
+    navigationLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        heroText.classList.add("hidden");
+      });
+    });
+
+    homeLink.addEventListener("click", () => {
+      heroText.classList.remove("hidden");
+    });
+  </script>
+
 </body>
 </html>
+
 
