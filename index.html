@@ -76,13 +76,9 @@
       transition: filter 0.5s ease;
       z-index: 0;
     }
-
-    .hero.ready::before {
+    
+    .hero.active::before {
       filter: blur(0px) brightness(0.45);
-    }
-
-    .hero.dimmed::before {
-      filter: blur(0px) brightness(0.35);
     }
 
     .hero-text {
@@ -151,11 +147,22 @@
     <section id="contact"></section>
   </main>
 
-  <script>
-    const hero = document.querySelector(".hero");
-    const heroText = document.getElementById("heroText");
-    const navigationLinks = document.querySelectorAll("nav a");
-    const homeLink = document.querySelector(".logo");
+const hero = document.querySelector(".hero");
+const heroText = document.getElementById("heroText");
+const navigationLinks = document.querySelectorAll("nav a");
+const homeLink = document.querySelector(".logo");
+
+navigationLinks.forEach(link => {
+  link.addEventListener("click", () => {
+    hero.classList.add("active");
+    heroText.classList.add("hidden");
+  });
+});
+
+homeLink.addEventListener("click", () => {
+  hero.classList.remove("active");
+  heroText.classList.remove("hidden");
+});
 
     requestAnimationFrame(() => {
       hero.classList.add("ready");
