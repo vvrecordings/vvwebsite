@@ -122,6 +122,14 @@
       transition: opacity 2s ease, filter 2s ease;
     }
 
+    #releases,
+    #artists,
+    #about,
+    #contact {
+      min-height: 100vh;
+      scroll-margin-top: 0;
+    }
+
     @media (max-width: 600px) {
       header {
         padding: 22px 5%;
@@ -168,57 +176,57 @@
     <section id="contact"></section>
   </main>
 
+  <script>
+    const hero = document.querySelector(".hero");
+    const heroText = document.getElementById("heroText");
+    const navigationLinks = document.querySelectorAll("nav a");
+    const homeLink = document.querySelector(".logo");
 
-const hero = document.querySelector(".hero");
-const heroText = document.getElementById("heroText");
-const navigationLinks = document.querySelectorAll("nav a");
-const homeLink = document.querySelector(".logo");
+    // Initial animation: 2 seconds
+    heroText.classList.add("initial");
 
-// Initial animation: 2 seconds
-heroText.classList.add("initial");
+    requestAnimationFrame(() => {
+      heroText.classList.add("visible");
+    });
 
-requestAnimationFrame(() => {
-  heroText.classList.add("visible");
-});
+    heroText.addEventListener("transitionend", function initialAnimation(event) {
+      if (
+        event.propertyName === "opacity" &&
+        heroText.classList.contains("visible")
+      ) {
+        heroText.classList.remove("initial");
+        heroText.removeEventListener("transitionend", initialAnimation);
+      }
+    });
 
-heroText.addEventListener("transitionend", function initialAnimation(event) {
-  if (
-    event.propertyName === "opacity" &&
-    heroText.classList.contains("visible")
-  ) {
-    heroText.classList.remove("initial");
-    heroText.removeEventListener("transitionend", initialAnimation);
-  }
-});
+    // Navigation without changing the URL
+    navigationLinks.forEach(link => {
+      link.addEventListener("click", event => {
+        event.preventDefault();
 
-// Navigation without changing the URL
-navigationLinks.forEach(link => {
-  link.addEventListener("click", event => {
-    event.preventDefault();
+        const target = document.querySelector(link.getAttribute("href"));
 
-    const target = document.querySelector(link.getAttribute("href"));
+        hero.classList.add("active");
+        heroText.classList.remove("visible");
+        heroText.classList.add("hidden");
+        homeLink.classList.add("visible");
 
-    hero.classList.add("active");
-    heroText.classList.remove("visible");
-    heroText.classList.add("hidden");
-    homeLink.classList.add("visible");
+        target.scrollIntoView({ behavior: "smooth" });
+      });
+    });
 
-    target.scrollIntoView({ behavior: "smooth" });
-  });
-});
+    // Return to Home using the VV logo
+    homeLink.addEventListener("click", event => {
+      event.preventDefault();
 
-// Return to Home using the VV logo
-homeLink.addEventListener("click", event => {
-  event.preventDefault();
+      hero.classList.remove("active");
+      heroText.classList.remove("hidden");
+      heroText.classList.add("visible");
+      homeLink.classList.remove("visible");
 
-  hero.classList.remove("active");
-  heroText.classList.remove("hidden");
-  heroText.classList.add("visible");
-  homeLink.classList.remove("visible");
-
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
-
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
 
 </body>
 </html>
