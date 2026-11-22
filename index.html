@@ -42,6 +42,16 @@
       font-size: 28px;
       font-weight: bold;
       letter-spacing: 2px;
+      opacity: 0;
+      filter: blur(8px);
+      pointer-events: none;
+      transition: opacity 0.5s ease, filter 0.5s ease;
+    }
+    
+    .logo.visible {
+      opacity: 1;
+      filter: blur(0px);
+      pointer-events: auto;
     }
 
     nav {
@@ -147,24 +157,26 @@
     <section id="contact"></section>
   </main>
 
-  <script>
-    const hero = document.querySelector(".hero");
-    const heroText = document.getElementById("heroText");
-    const navigationLinks = document.querySelectorAll("nav a");
-    const homeLink = document.querySelector(".logo");
-
-    navigationLinks.forEach(link => {
-      link.addEventListener("click", () => {
-        hero.classList.add("active");
-        heroText.classList.add("hidden");
+    <script>
+      const hero = document.querySelector(".hero");
+      const heroText = document.getElementById("heroText");
+      const navigationLinks = document.querySelectorAll("nav a");
+      const homeLink = document.querySelector(".logo");
+    
+      navigationLinks.forEach(link => {
+        link.addEventListener("click", () => {
+          hero.classList.add("active");
+          heroText.classList.add("hidden");
+          homeLink.classList.add("visible");
+        });
       });
-    });
-
-    homeLink.addEventListener("click", () => {
-      hero.classList.remove("active");
-      heroText.classList.remove("hidden");
-    });
-  </script>
+    
+      homeLink.addEventListener("click", () => {
+        hero.classList.remove("active");
+        heroText.classList.remove("hidden");
+        homeLink.classList.remove("visible");
+      });
+    </script>
 
 </body>
 </html>
