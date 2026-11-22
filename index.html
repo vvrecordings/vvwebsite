@@ -112,6 +112,10 @@
       opacity: 1;
       filter: blur(0px);
     }
+    
+    .hero-text.initial {
+  transition: opacity 2s ease, filter 2s ease;
+    }
 
     .hero-text.hidden {
       opacity: 0;
@@ -171,6 +175,8 @@
     const homeLink = document.querySelector(".logo");
 
     // Initial animation when entering the website
+    heroText.classList.add("initial");
+
     requestAnimationFrame(() => {
       heroText.classList.add("visible");
     });
