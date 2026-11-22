@@ -168,47 +168,57 @@
     <section id="contact"></section>
   </main>
 
-  <script>
-    const hero = document.querySelector(".hero");
-    const heroText = document.getElementById("heroText");
-    const navigationLinks = document.querySelectorAll("nav a");
-    const homeLink = document.querySelector(".logo");
 
-    // Initial animation: 2 seconds
-    heroText.classList.add("initial");
+const hero = document.querySelector(".hero");
+const heroText = document.getElementById("heroText");
+const navigationLinks = document.querySelectorAll("nav a");
+const homeLink = document.querySelector(".logo");
 
-    requestAnimationFrame(() => {
-      heroText.classList.add("visible");
-    });
+// Initial animation: 2 seconds
+heroText.classList.add("initial");
 
-    heroText.addEventListener("transitionend", function initialAnimation(event) {
-      if (
-        event.propertyName === "opacity" &&
-        heroText.classList.contains("visible")
-      ) {
-        heroText.classList.remove("initial");
-        heroText.removeEventListener("transitionend", initialAnimation);
-      }
-    });
+requestAnimationFrame(() => {
+  heroText.classList.add("visible");
+});
 
-    // Navigation between sections
-    navigationLinks.forEach(link => {
-      link.addEventListener("click", () => {
-        hero.classList.add("active");
-        heroText.classList.remove("visible");
-        heroText.classList.add("hidden");
-        homeLink.classList.add("visible");
-      });
-    });
+heroText.addEventListener("transitionend", function initialAnimation(event) {
+  if (
+    event.propertyName === "opacity" &&
+    heroText.classList.contains("visible")
+  ) {
+    heroText.classList.remove("initial");
+    heroText.removeEventListener("transitionend", initialAnimation);
+  }
+});
 
-    // Return to Home using the VV logo
-    homeLink.addEventListener("click", () => {
-      hero.classList.remove("active");
-      heroText.classList.remove("hidden");
-      heroText.classList.add("visible");
-      homeLink.classList.remove("visible");
-    });
-  </script>
+// Navigation without changing the URL
+navigationLinks.forEach(link => {
+  link.addEventListener("click", event => {
+    event.preventDefault();
+
+    const target = document.querySelector(link.getAttribute("href"));
+
+    hero.classList.add("active");
+    heroText.classList.remove("visible");
+    heroText.classList.add("hidden");
+    homeLink.classList.add("visible");
+
+    target.scrollIntoView({ behavior: "smooth" });
+  });
+});
+
+// Return to Home using the VV logo
+homeLink.addEventListener("click", event => {
+  event.preventDefault();
+
+  hero.classList.remove("active");
+  heroText.classList.remove("hidden");
+  heroText.classList.add("visible");
+  homeLink.classList.remove("visible");
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
 
 </body>
 </html>
