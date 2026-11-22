@@ -176,19 +176,16 @@
 
     // Initial animation when entering the website
     heroText.classList.add("initial");
-
+    
     requestAnimationFrame(() => {
       heroText.classList.add("visible");
     });
-
-    // Navigation between sections
-    navigationLinks.forEach(link => {
-      link.addEventListener("click", () => {
-        hero.classList.add("active");
-        heroText.classList.remove("visible");
-        heroText.classList.add("hidden");
-        homeLink.classList.add("visible");
-      });
+    
+    heroText.addEventListener("transitionend", function initialAnimation(event) {
+      if (event.propertyName === "opacity" && heroText.classList.contains("visible")) {
+        heroText.classList.remove("initial");
+        heroText.removeEventListener("transitionend", initialAnimation);
+      }
     });
 
     // Return to Home using the VV logo
